@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<project name="Balansekonomix" default="runAll" basedir=".">
+
+	<!-- ====== Initialize Properties ====== -->
+	<property environment="env" />
+	<property name="test.src" location="src/com/Balansekonomix" />
+	<property name="test.dest" location="build" />
+	<property name="test.lib" location="lib" />
+	<property name="test.result" location="test-output" />	
+
+	<!-- ====== Include required jar files and set classpath ====== -->
+	<path id="test.classpath">
+		<pathelement location="${test.dest}" />
+		<fileset dir="${test.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- ====== Check for ANT setup ====== -->
+	<tstamp>
+		<format property="date" pattern="MMddyyyy" />
+		<format property="time" pattern="hhmmss" />
+	</tstamp>
+
+	<!-- ====== Delete old compiled classes ====== -->
+	<target name="clean">
+		<delete dir="test-output" />
+		<delete dir="${test.dest}" />
+		<delete dir="${classes.dir}" failonerror="false"/>
+	</target>
+
+	<!-- ====== TestNG task definition ====== -->
+	<taskdef name="testng" classpathref="test.classpath" classname="org.testng.TestNGAntTask" />
+
+	<!-- ====== Compile all java files ====== -->
+	<target name="compile" depends="clean">
+		<echo message="making directory..." />
+		<mkdir dir="test-output" />
+		<mkdir dir="${test.dest}" />
+		<echo message="classpath: ${test.classpath}" />
+		<echo message="compiling..." />
+		<javac debug="true" destdir="${test.dest}" includes="**/*.java, scripts/*/*.java" srcdir="${test.src}">
+			<classpath refid="test.classpath" />
+		</javac>
+	</target>
+
+	<!-- ====== Run All tests ====== -->
+	<target name="runAll" depends="compile">
+		<testng classpathref="test.classpath" suitename="AllTest">
+			<xmlfileset dir="config" includes="*.xml" />
+		</testng>
+	</target>
+	
+	<target name="ReportScript" depends="compile">
+			<testng classpathref="test.classpath" suitename="runReport">
+				<xmlfileset dir="config" includes="ReportScript.xml" />
+			</testng>
+		</target>
+	
+	<!--Run Mail-->
+	<target name="sendemail" depends="ReportScript">  
+	        <echo> Before SendMail </echo>  
+	                   <java classname="com.Balansekonomix.scripts.ExeLog" classpath="${test.dest}" classpathref="test.classpath" />  
+	        <echo> After sendmail </echo>   
+	</target>  
+	
+	 <target name="send" depends="compile" >
+				<testng classpathref="test.classpath" suitename="SendEmail" haltonfailure="true">
+					<xmlfileset dir="config" includes="ExeLog.xml" />
+ 				</testng>
+      </target>
+	  
+	<target name="All" depends="compile">
+		<testng classpathref="test.classpath" suitename="mworks" haltonfailure="false">
+			<xmlfileset dir="config" includes="All.xml"/>
+		</testng>
+	</target>
+ 
+	<target name="SeleniumTests" depends="Part4_final">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="true">
+			<xmlfileset dir="config" includes="EmailableReport.xml"/>
+		</testng>
+    </target>
+	
+	<target name="Part1" depends="compile">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="false">
+			<xmlfileset dir="config" includes="Part1.xml"/>
+		</testng>
+	</target>
+	
+	<target name="Part2" depends="Part1">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="false">
+			<xmlfileset dir="config" includes="Part2.xml"/>
+		</testng>
+	</target>
+	
+	<target name="Part3" depends="Part2">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="false">
+			<xmlfileset dir="config" includes="Part3.xml"/>
+		</testng>
+	</target>
+	
+	<target name="Part4_final" depends="Part3">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="false">
+			<xmlfileset dir="config" includes="Part4_final.xml"/>
+		</testng>
+	</target>
+	
+	<target name="Smoketest" depends="compile">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="false">
+			<xmlfileset dir="config" includes="Smoketest.xml"/>
+		</testng>
+		</target>
+		
+		<target name="SeleniumSmokeTests" depends="Smoketest">
+		<testng classpathref="test.classpath" suitename="Balansekonomix" haltonfailure="true">
+			<xmlfileset dir="config" includes="EmailableReport.xml"/>
+		</testng>
+    </target>
+		
+		
+	
+</project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="lib" path="lib/reportng-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-server-standalone-2.41.0.jar"/>
+	<classpathentry kind="lib" path="lib/sikuli-script.jar"/>
+	<classpathentry kind="lib" path="lib/testng-5.14.1.jar"/>
+	<classpathentry kind="lib" path="lib/velocity-dep-1.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/ATExcelReport.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/jfreechart.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/jfreechart-dependency-jcommon-1.0.12.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/poi-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/poi-ooxml-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/poi-ooxml-schemas-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/SCRIPT/AT Excel Report Jars/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
